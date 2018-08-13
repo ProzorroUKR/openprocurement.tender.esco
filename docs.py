@@ -780,20 +780,15 @@ class TenderResourceTest(BaseESCOWebTest):
         self.db.save(tender)
 
         # cannot change any contract attirbutes
-        # with open('docs/source/tutorial/tender-contract-set-contract-value.http', 'w') as self.app.file_obj:
-        #     response = self.app.patch_json('/tenders/{}/contracts/{}?acc_token={}'.format(
-        #         self.tender_id, self.contract_id, owner_token), {"data": {"contractNumber": "contract#1",
-        #                                                                   "value": {
-        #                                                                       # "annualCostsReduction": [300.6] * 21, can change only when tender status is active.tendering
-        #                                                                       # "yearlyPaymentsPercentage": 0.9,
-        #                                                                       "amount": 11089.1232877, #cannot change is generated auto
-        #                                                                       "contractDuration": {
-        #                                                                           'years': 5, 'days': 100
-        #                                                                       }
-        #                                                                   }
-        #                                                                   }})
-        #     self.assertEqual(response.status, '200 OK')
-        #self.assertEqual(response.json['data']['value']['amount'], 509.678)
+        with open('docs/source/tutorial/tender-contract-set-contract-value.http', 'w') as self.app.file_obj:
+            response = self.app.patch_json('/tenders/{}/contracts/{}?acc_token={}'.format(
+                self.tender_id, self.contract_id, owner_token),
+                {"data": {"contractNumber": "contract#1", "value": {
+                    "amountNet": response.json['data']['value']['amount'] - 1}}})
+            self.assertEqual(response.status, '200 OK')
+        self.assertEqual(
+            response.json['data']['value']['amountNet'],
+            response.json['data']['value']['amount'] - 1)
 
         #### Setting contract signature date
         #
