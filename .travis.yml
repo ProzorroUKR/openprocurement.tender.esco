@@ -27,5 +27,6 @@ install:
   - bin/develop up --force
 script:
   - bin/nosetests
+  - bin/pylint --errors-only --disable=no-member,not-an-iterable,bad-super-call,unsubscriptable-object,too-many-format-args openprocurement.tender.belowthreshold
 after_success:
   - bin/coveralls
