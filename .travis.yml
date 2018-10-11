@@ -26,7 +26,7 @@ install:
   - bin/buildout -N remotes:branch=$TRAVIS_BRANCH
   - bin/develop up --force
 script:
-  - bin/nosetests
+  - bin/py.test ./openprocurement/tender/esco/tests/ --cov=openprocurement.tender.esco
   - bin/pylint --errors-only --disable=no-member,not-an-iterable,bad-super-call,unsubscriptable-object,too-many-format-args openprocurement.tender.belowthreshold
 after_success:
   - bin/coveralls
