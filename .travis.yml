@@ -27,6 +27,6 @@ install:
   - bin/develop up --force
 script:
   - bin/py.test ./openprocurement/tender/esco/tests/ --cov=openprocurement.tender.esco
-  - bin/pylint --errors-only --disable=no-member,not-an-iterable,bad-super-call,unsubscriptable-object,too-many-format-args openprocurement.tender.belowthreshold
+  - bin/pylint --errors-only --disable=no-member,not-an-iterable,bad-super-call,unsubscriptable-object,too-many-format-args openprocurement.tender.esco
 after_success:
   - bin/coveralls
